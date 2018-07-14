@@ -12,6 +12,7 @@ public class Character : MonoBehaviour {
     [SerializeField]
     private int jumpsAllow;
     private int jumps;
+    private bool isJumping;
     private Rigidbody2D rb;
     private Coroutine moveUp;
     #endregion
@@ -26,21 +27,48 @@ public class Character : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Floor")
         {
+            if (isJumping)
+            {
+                print("one life lost");
+                isJumping = false;
+            }
             jumps = 0;
         }
 
         if (collision.gameObject.GetComponent<Hole>())
         {
-            if (moveUp != null)
+            if (isJumping)
             {
-                StopCoroutine(moveUp);
+                if (moveUp != null)
+                {
+                    StopCoroutine(moveUp);
+                }
+                else
+                {
+                    moveUp = StartCoroutine(MoveUP(new Vector2(transform.position.x,
+                    collision.gameObject.GetComponent<SpriteMask>().bounds.size.y +
+                    collision.transform.position.y + 0.1f)));
+                }
+                isJumping = false;
             }
             else
             {
-                moveUp = StartCoroutine(MoveUP(new Vector2(transform.position.x,
-                collision.gameObject.GetComponent<SpriteMask>().bounds.size.y +
-                collision.transform.position.y)));
+                if (moveUp != null)
+                {
+                    StopCoroutine(moveUp);
+                }
+                else
+                {
+                    moveUp = StartCoroutine(MoveUP(new Vector2(transform.position.x,
+                    collision.transform.position.y -
+                    collision.gameObject.GetComponent<SpriteMask>().bounds.size.y - 0.1f)));
+                }
             }
+        }
+
+        if (collision.gameObject.GetComponent<Monster>())
+        {
+            //paralice
         }
     }
     #endregion
@@ -56,6 +84,7 @@ public class Character : MonoBehaviour {
         if (jumps < jumpsAllow)
         {
             rb.AddForce(new Vector2(0f, 1f) * jumpForce);
+            isJumping = true;
             jumps++;
         }
     }
@@ -63,7 +92,7 @@ public class Character : MonoBehaviour {
     private IEnumerator MoveUP(Vector2 position)
     {
         float startTime = Time.time;
-        float lerpTime = 1f;
+        float lerpTime = 0.5f;
         float endTime = startTime + lerpTime;
         float t;
         GetComponent<BoxCollider2D>().isTrigger = true;
