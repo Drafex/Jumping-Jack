@@ -12,20 +12,63 @@ public class Character : MonoBehaviour {
     [SerializeField]
     private int jumpsAllow;
     private int jumps;
+    private bool isJumping;
     private Rigidbody2D rb;
+    private Coroutine moveUp;
     #endregion
 
     #region Unity Functions
     void Start()
     {
-        rb = gameObject.AddComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Floor")
         {
+            if (isJumping)
+            {
+                print("one life lost");
+                isJumping = false;
+            }
             jumps = 0;
+        }
+
+        if (collision.gameObject.GetComponent<Hole>())
+        {
+            if (isJumping)
+            {
+                if (moveUp != null)
+                {
+                    StopCoroutine(moveUp);
+                }
+                else
+                {
+                    moveUp = StartCoroutine(MoveUP(new Vector2(transform.position.x,
+                    collision.gameObject.GetComponent<SpriteMask>().bounds.size.y +
+                    collision.transform.position.y + 0.1f)));
+                }
+                isJumping = false;
+            }
+            else
+            {
+                if (moveUp != null)
+                {
+                    StopCoroutine(moveUp);
+                }
+                else
+                {
+                    moveUp = StartCoroutine(MoveUP(new Vector2(transform.position.x,
+                    collision.transform.position.y -
+                    collision.gameObject.GetComponent<SpriteMask>().bounds.size.y - 0.1f)));
+                }
+            }
+        }
+
+        if (collision.gameObject.GetComponent<Monster>())
+        {
+            //paralice
         }
     }
     #endregion
@@ -41,8 +84,28 @@ public class Character : MonoBehaviour {
         if (jumps < jumpsAllow)
         {
             rb.AddForce(new Vector2(0f, 1f) * jumpForce);
+            isJumping = true;
             jumps++;
         }
+    }
+
+    private IEnumerator MoveUP(Vector2 position)
+    {
+        float startTime = Time.time;
+        float lerpTime = 0.5f;
+        float endTime = startTime + lerpTime;
+        float t;
+        GetComponent<BoxCollider2D>().isTrigger = true;
+        rb.simulated = false;
+        while (Time.time <= endTime)
+        {
+            t = (Time.time - startTime) / lerpTime;
+            transform.position = Vector3.Lerp(transform.position, position, t);
+            yield return new WaitForEndOfFrame();
+        }
+        GetComponent<BoxCollider2D>().isTrigger = false;
+        rb.simulated = true;
+        moveUp = null;
     }
     #endregion
 
