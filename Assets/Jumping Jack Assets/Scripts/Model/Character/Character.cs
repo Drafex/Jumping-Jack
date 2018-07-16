@@ -35,7 +35,7 @@ public class Character : MonoBehaviour {
             jumps = 0;
         }
 
-        if (collision.gameObject.GetComponent<Hole>())
+        if (collision.gameObject.tag == "Hole")
         {
             if (isJumping)
             {
@@ -48,6 +48,7 @@ public class Character : MonoBehaviour {
                     moveUp = StartCoroutine(MoveUP(new Vector2(transform.position.x,
                     collision.gameObject.GetComponent<SpriteMask>().bounds.size.y +
                     collision.transform.position.y + 0.1f)));
+                    GameControl.instance.CreateHoleOrMonster(0);
                 }
                 isJumping = false;
             }
@@ -66,7 +67,7 @@ public class Character : MonoBehaviour {
             }
         }
 
-        if (collision.gameObject.GetComponent<Monster>())
+        if (collision.gameObject.tag == "Monster")
         {
             //paralice
         }
@@ -77,6 +78,17 @@ public class Character : MonoBehaviour {
     public void Move(float direction)
     {
         transform.Translate(new Vector2(direction, 0f) * speed);
+        if (Camera.main.WorldToViewportPoint(transform.position).x < 0 && direction < 0)
+        {
+           
+            transform.position = new Vector2(Camera.main.ViewportToWorldPoint(new Vector2(1, 0)).x,
+                transform.position.y);
+        }
+        else if (Camera.main.WorldToViewportPoint(transform.position).x > 1 && direction > 0)
+        {
+            transform.position = new Vector2(Camera.main.ViewportToWorldPoint(new Vector2(0f, 0)).x,
+                transform.position.y);
+        }
     }
 
     public void Jump()

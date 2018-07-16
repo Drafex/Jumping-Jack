@@ -63,8 +63,6 @@
     <Compile Include="Assets\Jumping Jack Assets\Scripts\Control\Input Control\InputControl.cs" />
     <Compile Include="Assets\Jumping Jack Assets\Scripts\Control\UI Control\UIControl.cs" />
     <Compile Include="Assets\Jumping Jack Assets\Scripts\Model\Character\Character.cs" />
-    <Compile Include="Assets\Jumping Jack Assets\Scripts\Model\Objects\Hole.cs" />
-    <Compile Include="Assets\Jumping Jack Assets\Scripts\Model\Objects\Monster.cs" />
     <Compile Include="Assets\Jumping Jack Assets\Scripts\Model\Objects\MovingObjects.cs" />
     <Compile Include="Assets\Jumping Jack Assets\Scripts\View\MessageData.cs" />
     <Compile Include="Assets\Jumping Jack Assets\Scripts\View\MessageSystem.cs" />

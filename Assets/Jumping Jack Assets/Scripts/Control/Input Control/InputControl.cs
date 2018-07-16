@@ -12,6 +12,7 @@ public class InputControl : MonoBehaviour {
 
     void Update()
     {
+
         if (Input.GetAxis("Horizontal") != 0)
         {
             GameControl.instance.Character.Move(Input.GetAxis("Horizontal"));
