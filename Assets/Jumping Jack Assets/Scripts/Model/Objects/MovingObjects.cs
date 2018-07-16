@@ -6,9 +6,10 @@ public class MovingObjects : MonoBehaviour {
 
     [SerializeField]
     private float speed;
-    [SerializeField]
     private int indexOnFloor;
-    private Vector2 direction; 
+    private Vector2 direction;
+    [SerializeField]
+    private float initialHigh;
     #region Unity Functions
     void Start()
     {
@@ -30,7 +31,7 @@ public class MovingObjects : MonoBehaviour {
                     indexOnFloor = 0;
                 }
                 transform.position = new Vector2(Camera.main.ViewportToWorldPoint(new Vector2(1.055f, 0)).x,
-                    GameControl.instance.Floors[indexOnFloor].position.y);
+                    GameControl.instance.Floors[indexOnFloor].position.y + initialHigh);
             }
             else if (Camera.main.WorldToViewportPoint(transform.position).x > 1.05 && direction.x > 0)
             {
@@ -40,7 +41,7 @@ public class MovingObjects : MonoBehaviour {
                     indexOnFloor = 7;
                 }
                 transform.position = new Vector2(Camera.main.ViewportToWorldPoint(new Vector2(-0.055f, 0)).x,
-                    GameControl.instance.Floors[indexOnFloor].position.y);
+                    GameControl.instance.Floors[indexOnFloor].position.y + initialHigh);
             }
             yield return new WaitForEndOfFrame();
         }
@@ -71,6 +72,19 @@ public class MovingObjects : MonoBehaviour {
         set
         {
             indexOnFloor = value;
+        }
+    }
+
+    public float InitialHigh
+    {
+        get
+        {
+            return initialHigh;
+        }
+
+        set
+        {
+            initialHigh = value;
         }
     }
     #endregion

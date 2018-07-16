@@ -44,6 +44,7 @@ public class GameControl : MonoBehaviour {
         directions.Add(Vector2.left);
         directions.Add(Vector2.right);
         FirstTwoHoles();
+        CreateHoleOrMonster(1);
     }
     #endregion
 
@@ -57,7 +58,7 @@ public class GameControl : MonoBehaviour {
             case 0:
                 mo = Instantiate(hole).GetComponent<MovingObjects>();
                 mo.transform.position = new Vector2(mo.transform.position.x,
-                    floors[randomPosition].position.y);
+                    floors[randomPosition].position.y + mo.InitialHigh);
                 mo.IndexOnFloor = randomPosition;
                 mo.Direction = (directions[Random.Range(0, directions.Count - 1)]);
                 break;
@@ -65,7 +66,7 @@ public class GameControl : MonoBehaviour {
             case 1:
                 mo = Instantiate(monster).GetComponent<MovingObjects>();
                 mo.transform.position = new Vector2(mo.transform.position.x,
-                    floors[randomPosition].position.y);
+                    floors[randomPosition].position.y + mo.InitialHigh);
                 mo.IndexOnFloor = randomPosition;
                 mo.Direction = (directions[Random.Range(0, directions.Count - 1)]);
                 break;
