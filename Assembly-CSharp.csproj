@@ -66,6 +66,8 @@
     <Compile Include="Assets\Jumping Jack Assets\Scripts\Model\Objects\MovingObjects.cs" />
     <Compile Include="Assets\Jumping Jack Assets\Scripts\View\MessageData.cs" />
     <Compile Include="Assets\Jumping Jack Assets\Scripts\View\MessageSystem.cs" />
+    <None Include="Assets\Jumping Jack Assets\Art\Fonts\prince-valiant\1001fonts-prince-valiant-eula.txt" />
+    <None Include="Assets\Jumping Jack Assets\Art\Fonts\medici-text\1001fonts-medici-text-eula.txt" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/czulua18/Documents/Jumping Jack/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
