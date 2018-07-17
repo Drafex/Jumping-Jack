@@ -883,7 +883,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.22375008, y: 0.21083426}
   m_AnchorMax: {x: 0.76875, y: 0.38366857}
-  m_AnchoredPosition: {x: 3, y: 1.8999939}
+  m_AnchoredPosition: {x: 3, y: 1.8999634}
   m_SizeDelta: {x: -2.1999998, y: 3.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &583445868
@@ -1431,6 +1431,7 @@ MonoBehaviour:
   hole: {fileID: 1155256628912786, guid: 23697c8f653a82c4eb10dec575f8e3f3, type: 2}
   monster: {fileID: 1244161405692024, guid: 640c8c172e169d34fa682f4fa9dbee65, type: 2}
   initialPosition: {fileID: 1149466531}
+  firstFloor: {fileID: 1611347276}
   prfCharacter: {fileID: 1855884359585528, guid: fb560076c9456274997db632955f82a4,
     type: 2}
 --- !u!4 &1412117620

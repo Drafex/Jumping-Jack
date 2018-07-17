@@ -34,6 +34,11 @@ public class GameControl : MonoBehaviour {
     private int scoreAdded;
     #endregion
 
+    #region Re-Size Parameters
+    [SerializeField]
+    private Transform firstFloor;
+    #endregion
+
     #region Prefabs
     [SerializeField]
     private GameObject prfCharacter;
@@ -47,6 +52,8 @@ public class GameControl : MonoBehaviour {
             Destroy(instance);
         }
         instance = this;
+
+        ReSize();
 
         uiControl = GetComponent<UIControl>();
 
@@ -155,6 +162,18 @@ public class GameControl : MonoBehaviour {
     public void GameOver()
     {
         SceneManager.LoadScene(1);
+    }
+    #endregion
+
+    #region Re-Size Floor
+    private void ReSize()
+    {
+        float scale = Mathf.Abs(Camera.main.ViewportToWorldPoint(new Vector2(0, 0)).x - Camera.main.ViewportToWorldPoint(new Vector2(1, 0)).x);
+        foreach (Transform item in floors)
+        {
+            item.localScale = new Vector2(scale *0.45f, item.localScale.y);
+        }
+        firstFloor.localScale = new Vector2(scale * 0.45f, firstFloor.localScale.y);
     }
     #endregion
 
