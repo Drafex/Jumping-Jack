@@ -14,7 +14,7 @@ public class Character : MonoBehaviour {
     [SerializeField]
     private int jumpsAllow;
     private int jumps;
-  //  private bool isJumping;
+    private int lifes;
     private bool paralized;
     private Rigidbody2D rb;
     private Coroutine moveUp;
@@ -25,6 +25,7 @@ public class Character : MonoBehaviour {
     #region Unity Functions
     void Start()
     {
+        lifes = 6;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -39,6 +40,15 @@ public class Character : MonoBehaviour {
                     StopCoroutine(paralize);
                 }
                 paralize = StartCoroutine(Paralize());
+            }
+            if (!GameControl.instance.Floors.Contains(collision.transform) && paralized)
+            {
+                lifes--;
+                if (lifes < 0)
+                {
+                    //Game Over
+                    //TODO when the level feature is on Remember to call the GameOver
+                }
             }
             jumps = 0;
         }
