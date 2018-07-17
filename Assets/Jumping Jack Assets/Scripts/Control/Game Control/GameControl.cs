@@ -157,6 +157,7 @@ public class GameControl : MonoBehaviour {
         uiControl.ShowLinesContainer();
         character.transform.position = initialPosition.position;
         character.gameObject.SetActive(true);
+        character.Paralized = false;
     }
 
     public void GameOver()
