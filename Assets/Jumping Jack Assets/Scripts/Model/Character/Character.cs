@@ -26,6 +26,7 @@ public class Character : MonoBehaviour {
     void Start()
     {
         lifes = 6;
+        GameControl.instance.UIControl.Life.text = "Lifes: " + lifes;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -44,6 +45,7 @@ public class Character : MonoBehaviour {
             if (!GameControl.instance.Floors.Contains(collision.transform) && paralized)
             {
                 lifes--;
+                GameControl.instance.UIControl.Life.text = "Lifes: " + lifes;
                 if (lifes < 0)
                 {
                     //Game Over

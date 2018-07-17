@@ -8,10 +8,11 @@ public class GameControl : MonoBehaviour {
     private Character character;
     private UIControl uiControl;
     private InputControl inputControl;
+    private MessageSystem messageSystem;
     public static GameControl instance;
     #endregion
 
-    #region Creating Holes and Monster
+    #region Creating Holes and Monster Parameters
     [SerializeField]
     private List<Transform> floors;
     [SerializeField]
@@ -35,11 +36,13 @@ public class GameControl : MonoBehaviour {
         }
         instance = this;
 
-        character = Instantiate(prfCharacter).GetComponent<Character>();
-
-        uiControl = gameObject.AddComponent<UIControl>();
+        uiControl = GetComponent<UIControl>();
 
         inputControl = gameObject.AddComponent<InputControl>();
+
+        messageSystem = GetComponent<MessageSystem>();
+
+        character = Instantiate(prfCharacter).GetComponent<Character>();
 
         directions.Add(Vector2.left);
         directions.Add(Vector2.right);
@@ -106,7 +109,7 @@ public class GameControl : MonoBehaviour {
     {
         get
         {
-            return UIControl;
+            return uiControl;
         }
     }
 
@@ -115,6 +118,14 @@ public class GameControl : MonoBehaviour {
         get
         {
             return inputControl;
+        }
+    }
+
+    public MessageSystem MessageSystem
+    {
+        get
+        {
+            return messageSystem;
         }
     }
     #endregion

@@ -1,11 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIControl : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    [SerializeField]
+    private Text showLines;
+    [SerializeField]
+    private Text lifes;
+    [SerializeField]
+    private GameObject linesContainer;
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -13,4 +20,38 @@ public class UIControl : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void ShowLinesContainer()
+    {
+        linesContainer.SetActive(!linesContainer.activeSelf);
+    }
+
+    #region Gets And Sets for UI
+    public Text ShowLines
+    {
+        get
+        {
+            return showLines;
+        }
+
+        set
+        {
+            showLines = value;
+        }
+    }
+
+    public Text Life
+    {
+        get
+        {
+            return lifes;
+        }
+
+        set
+        {
+            lifes = value;
+        }
+    }
+    #endregion
+
 }

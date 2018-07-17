@@ -26,7 +26,7 @@ public class MovingObjects : MonoBehaviour {
             if (Camera.main.WorldToViewportPoint(transform.position).x < -0.05 && direction.x < 0)
             {
                 indexOnFloor++;
-                if (indexOnFloor > 7)
+                if (indexOnFloor > 7 || transform.tag == "Monster" && IndexOnFloor > 6)
                 {
                     indexOnFloor = 0;
                 }

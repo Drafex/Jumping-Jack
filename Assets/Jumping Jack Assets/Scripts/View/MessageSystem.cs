@@ -4,13 +4,37 @@ using UnityEngine;
 
 public class MessageSystem : MonoBehaviour {
 
-	// Use this for initialization
+    private MessageData messageData;
+
+    [SerializeField]
+
 	void Start () {
-		
+        messageData = GetComponent<MessageData>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    public void NextLine(string line)
+    {
+        StartCoroutine(ShowLine(line));
+    }
+
+    private IEnumerator ShowLine(string nextLine)
+    {
+        GameControl.instance.UIControl.ShowLines.text = "";
+        foreach (char item in nextLine)
+        {
+            GameControl.instance.UIControl.ShowLines.text += item;
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+
+    #region Gets for Message
+    public MessageData MessageData
+    {
+        get
+        {
+            return messageData;
+        }
+    }
+    #endregion
+
 }

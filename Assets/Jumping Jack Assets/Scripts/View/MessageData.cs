@@ -3,14 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MessageData : MonoBehaviour {
+    [SerializeField]
+    private List<string> lines = new List<string>();
+    [SerializeField]
+    private string gameOverLine;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    #region Gets for Lines
+    public List<string> Lines
+    {
+        get
+        {
+            return lines;
+        }
+    }
+
+    public string GameOverLine
+    {
+        get
+        {
+            return gameOverLine;
+        }
+    }
+    #endregion
 }
