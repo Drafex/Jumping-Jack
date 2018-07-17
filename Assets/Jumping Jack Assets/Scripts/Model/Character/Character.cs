@@ -10,11 +10,16 @@ public class Character : MonoBehaviour {
     [SerializeField]
     private float jumpForce;
     [SerializeField]
+    private float paralizeTime;
+    [SerializeField]
     private int jumpsAllow;
     private int jumps;
-    private bool isJumping;
+  //  private bool isJumping;
+    private bool paralized;
     private Rigidbody2D rb;
     private Coroutine moveUp;
+    private Coroutine paralize;
+    private Coroutine letItFall;
     #endregion
 
     #region Unity Functions
@@ -27,17 +32,20 @@ public class Character : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Floor")
         {
-            if (isJumping)
+            if (collision.transform.position.y > transform.position.y)
             {
-                print("one life lost");
-                isJumping = false;
+                if (paralize != null)
+                {
+                    StopCoroutine(paralize);
+                }
+                paralize = StartCoroutine(Paralize());
             }
             jumps = 0;
         }
 
         if (collision.gameObject.tag == "Hole")
         {
-            if (isJumping)
+            if (collision.transform.position.y > transform.position.y)
             {
                 if (moveUp != null)
                 {
@@ -50,26 +58,36 @@ public class Character : MonoBehaviour {
                     collision.transform.position.y + 0.1f)));
                     GameControl.instance.CreateHoleOrMonster(0);
                 }
-                isJumping = false;
             }
             else
             {
-                if (moveUp != null)
+                if (letItFall != null)
                 {
-                    StopCoroutine(moveUp);
+                    StopCoroutine(letItFall);
                 }
                 else
                 {
-                    moveUp = StartCoroutine(MoveUP(new Vector2(transform.position.x,
-                    collision.transform.position.y -
-                    collision.gameObject.GetComponent<SpriteMask>().bounds.size.y - 0.1f)));
+                    letItFall = StartCoroutine(LetItFall(collision.transform.position.y - 
+                        collision.gameObject.GetComponent<SpriteMask>().bounds.size.y));
+                    if (paralize != null)
+                    {
+                        StopCoroutine(paralize);
+                    }
+                    paralize = StartCoroutine(Paralize());
                 }
             }
         }
+    }
 
-        if (collision.gameObject.tag == "Monster")
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Monster")
         {
-            //paralice
+            if (paralize != null)
+            {
+                StopCoroutine(paralize);
+            }
+            paralize = StartCoroutine(Paralize());
         }
     }
     #endregion
@@ -77,32 +95,35 @@ public class Character : MonoBehaviour {
     #region Movement Functions
     public void Move(float direction)
     {
-        transform.Translate(new Vector2(direction, 0f) * speed);
-        if (Camera.main.WorldToViewportPoint(transform.position).x < 0 && direction < 0)
+        if (!paralized)
         {
-           
-            transform.position = new Vector2(Camera.main.ViewportToWorldPoint(new Vector2(1, 0)).x,
-                transform.position.y);
-        }
-        else if (Camera.main.WorldToViewportPoint(transform.position).x > 1 && direction > 0)
-        {
-            transform.position = new Vector2(Camera.main.ViewportToWorldPoint(new Vector2(0f, 0)).x,
-                transform.position.y);
+            transform.Translate(new Vector2(direction, 0f) * speed);
+            if (Camera.main.WorldToViewportPoint(transform.position).x < 0 && direction < 0)
+            {
+
+                transform.position = new Vector2(Camera.main.ViewportToWorldPoint(new Vector2(1, 0)).x,
+                    transform.position.y);
+            }
+            else if (Camera.main.WorldToViewportPoint(transform.position).x > 1 && direction > 0)
+            {
+                transform.position = new Vector2(Camera.main.ViewportToWorldPoint(new Vector2(0f, 0)).x,
+                    transform.position.y);
+            }
         }
     }
 
     public void Jump()
     {
-        if (jumps < jumpsAllow)
+        if (jumps < jumpsAllow && !paralized)
         {
             rb.AddForce(new Vector2(0f, 1f) * jumpForce);
-            isJumping = true;
             jumps++;
         }
     }
 
     private IEnumerator MoveUP(Vector2 position)
     {
+        paralized = true;
         float startTime = Time.time;
         float lerpTime = 0.5f;
         float endTime = startTime + lerpTime;
@@ -118,6 +139,26 @@ public class Character : MonoBehaviour {
         GetComponent<BoxCollider2D>().isTrigger = false;
         rb.simulated = true;
         moveUp = null;
+        paralized = false;
+    }
+
+    private IEnumerator LetItFall(float posY)
+    {
+        GetComponent<BoxCollider2D>().isTrigger = true;
+        while (transform.position.y >= posY)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        GetComponent<BoxCollider2D>().isTrigger = false;
+        letItFall = null;
+    }
+
+    private IEnumerator Paralize()
+    {
+        paralized = true;
+        yield return new WaitForSeconds(paralizeTime);
+        paralized = false;
+        paralize = null;
     }
     #endregion
 

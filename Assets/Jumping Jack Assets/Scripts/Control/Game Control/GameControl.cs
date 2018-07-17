@@ -44,7 +44,6 @@ public class GameControl : MonoBehaviour {
         directions.Add(Vector2.left);
         directions.Add(Vector2.right);
         FirstTwoHoles();
-        CreateHoleOrMonster(1);
     }
     #endregion
 
