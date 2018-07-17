@@ -73,7 +73,8 @@ public class GameControl : MonoBehaviour {
         {
             case 0:
                 mo = Instantiate(hole).GetComponent<MovingObjects>();
-                mo.transform.position = new Vector2(mo.transform.position.x,
+                mo.transform.position = new Vector2(Random.Range(Camera.main.ViewportToWorldPoint(new Vector2(1, 0)).x,
+                    Camera.main.ViewportToWorldPoint(new Vector2(0, 0)).x), 
                     floors[randomPosition].position.y + mo.InitialHigh);
                 mo.IndexOnFloor = randomPosition;
                 mo.Direction = (directions[Random.Range(0, directions.Count - 1)]);
@@ -82,7 +83,8 @@ public class GameControl : MonoBehaviour {
 
             case 1:
                 mo = Instantiate(monster).GetComponent<MovingObjects>();
-                mo.transform.position = new Vector2(mo.transform.position.x,
+                mo.transform.position = new Vector2(Random.Range(Camera.main.ViewportToWorldPoint(new Vector2(1, 0)).x,
+                    Camera.main.ViewportToWorldPoint(new Vector2(0, 0)).x),
                     floors[randomPosition].position.y + mo.InitialHigh);
                 mo.IndexOnFloor = randomPosition;
                 mo.Direction = (directions[Random.Range(0, directions.Count - 1)]);
@@ -99,14 +101,16 @@ public class GameControl : MonoBehaviour {
         int randomPosition = Random.Range(0, floors.Count - 1);
 
         mo = Instantiate(hole).GetComponent<MovingObjects>();
-        mo.transform.position = new Vector2(mo.transform.position.x,
+        mo.transform.position = new Vector2(Random.Range(Camera.main.ViewportToWorldPoint(new Vector2(1, 0)).x,
+                    Camera.main.ViewportToWorldPoint(new Vector2(0, 0)).x),
             floors[randomPosition].position.y);
         mo.IndexOnFloor = randomPosition;
         mo.Direction = Vector2.left;
         allMovingObjects.Add(mo.gameObject);
 
         mo = Instantiate(hole).GetComponent<MovingObjects>();
-        mo.transform.position = new Vector2(mo.transform.position.x,
+        mo.transform.position = new Vector2(Random.Range(Camera.main.ViewportToWorldPoint(new Vector2(1, 0)).x,
+                    Camera.main.ViewportToWorldPoint(new Vector2(0, 0)).x),
             floors[randomPosition].position.y);
         mo.IndexOnFloor = randomPosition;
         mo.Direction = Vector2.right;
