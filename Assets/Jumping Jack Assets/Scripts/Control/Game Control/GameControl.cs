@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameControl : MonoBehaviour {
 
     #region References
@@ -20,6 +20,18 @@ public class GameControl : MonoBehaviour {
     [SerializeField]
     private GameObject monster;
     private List<Vector2> directions = new List<Vector2>();
+    #endregion
+
+    #region Levels Parameters
+    private int actualLevel;
+    [SerializeField]
+    private Transform initialPosition;
+    private List<GameObject> allMovingObjects = new List<GameObject>();
+    #endregion
+
+    #region Score Parameters
+    private int score;
+    private int scoreAdded;
     #endregion
 
     #region Prefabs
@@ -42,11 +54,13 @@ public class GameControl : MonoBehaviour {
 
         messageSystem = GetComponent<MessageSystem>();
 
-        character = Instantiate(prfCharacter).GetComponent<Character>();
+        character = Instantiate(prfCharacter, initialPosition.position, Quaternion.identity)
+            .GetComponent<Character>();
 
         directions.Add(Vector2.left);
         directions.Add(Vector2.right);
         FirstTwoHoles();
+        scoreAdded = 5;
     }
     #endregion
 
@@ -63,6 +77,7 @@ public class GameControl : MonoBehaviour {
                     floors[randomPosition].position.y + mo.InitialHigh);
                 mo.IndexOnFloor = randomPosition;
                 mo.Direction = (directions[Random.Range(0, directions.Count - 1)]);
+                allMovingObjects.Add(mo.gameObject);
                 break;
 
             case 1:
@@ -71,6 +86,7 @@ public class GameControl : MonoBehaviour {
                     floors[randomPosition].position.y + mo.InitialHigh);
                 mo.IndexOnFloor = randomPosition;
                 mo.Direction = (directions[Random.Range(0, directions.Count - 1)]);
+                allMovingObjects.Add(mo.gameObject);
                 break;
             default:
                 break;
@@ -87,12 +103,54 @@ public class GameControl : MonoBehaviour {
             floors[randomPosition].position.y);
         mo.IndexOnFloor = randomPosition;
         mo.Direction = Vector2.left;
+        allMovingObjects.Add(mo.gameObject);
 
         mo = Instantiate(hole).GetComponent<MovingObjects>();
         mo.transform.position = new Vector2(mo.transform.position.x,
             floors[randomPosition].position.y);
         mo.IndexOnFloor = randomPosition;
         mo.Direction = Vector2.right;
+        allMovingObjects.Add(mo.gameObject);
+    }
+    #endregion
+
+    #region Functions For Levels
+    public void NextLevel()
+    {
+        uiControl.ShowLinesContainer();
+        messageSystem.NextLine(messageSystem.MessageData.Lines[actualLevel]);
+        character.gameObject.SetActive(false);
+    }
+
+    public void ResetLevel()
+    {
+        foreach (GameObject item in allMovingObjects)
+        {
+            item.GetComponent<MovingObjects>().StopAllCoroutines();
+            Destroy(item);
+        }
+        FirstTwoHoles();
+        actualLevel++;
+        scoreAdded += 5;
+        if (actualLevel < messageSystem.MessageData.Lines.Count - 1)
+        {
+            for (int i = 0; i < actualLevel; i++)
+            {
+                CreateHoleOrMonster(1);
+            }
+        }
+        else
+        {
+            //send Credits
+        }
+        uiControl.ShowLinesContainer();
+        character.transform.position = initialPosition.position;
+        character.gameObject.SetActive(true);
+    }
+
+    public void GameOver()
+    {
+        SceneManager.LoadScene(1);
     }
     #endregion
 
@@ -136,6 +194,29 @@ public class GameControl : MonoBehaviour {
         get
         {
             return floors;
+        }
+    }
+    #endregion
+
+    #region Gets And Sets For Score
+    public int Score
+    {
+        get
+        {
+            return score;
+        }
+
+        set
+        {
+            score = value;
+        }
+    }
+
+    public int ScoreAdded
+    {
+        get
+        {
+            return scoreAdded;
         }
     }
     #endregion

@@ -20,11 +20,14 @@ public class MessageSystem : MonoBehaviour {
     private IEnumerator ShowLine(string nextLine)
     {
         GameControl.instance.UIControl.ShowLines.text = "";
+        yield return new WaitForSeconds(0.5f);
         foreach (char item in nextLine)
         {
             GameControl.instance.UIControl.ShowLines.text += item;
             yield return new WaitForSeconds(0.2f);
         }
+        yield return new WaitForSeconds(4f);
+        GameControl.instance.ResetLevel();
     }
 
     #region Gets for Message
