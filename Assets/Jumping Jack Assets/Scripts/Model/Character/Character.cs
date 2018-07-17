@@ -204,5 +204,18 @@ public class Character : MonoBehaviour {
             return jumpForce;
         }
     }
+
+    public bool Paralized
+    {
+        get
+        {
+            return paralized;
+        }
+
+        set
+        {
+            paralized = value;
+        }
+    }
     #endregion
 }
