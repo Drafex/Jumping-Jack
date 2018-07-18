@@ -20,6 +20,13 @@ public class Character : MonoBehaviour {
     private Coroutine moveUp;
     private Coroutine paralize;
     private Coroutine letItFall;
+    private Animator animator;
+    #endregion
+
+    #region Parameters For Sounds
+    private AudioSource audioSource;
+    [SerializeField]
+    private List<AudioClip> soundEffects;
     #endregion
 
     #region Unity Functions
@@ -28,6 +35,8 @@ public class Character : MonoBehaviour {
         lifes = 6;
         GameControl.instance.UIControl.Life.text = "Lifes: " + lifes;
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -40,6 +49,8 @@ public class Character : MonoBehaviour {
                 {
                     StopCoroutine(paralize);
                 }
+                audioSource.clip = soundEffects[1];
+                audioSource.Play();
                 paralize = StartCoroutine(Paralize());
             }
             if (!GameControl.instance.Floors.Contains(collision.transform) && paralized)
@@ -80,7 +91,7 @@ public class Character : MonoBehaviour {
                     {
                         GameControl.instance.NextLevel();
                     }
-                    GameControl.instance.CreateHoleOrMonster(0);
+                    GameControl.instance.CreateHoleOrMonster(0,0);
                     GameControl.instance.Score += GameControl.instance.ScoreAdded;
                     GameControl.instance.UIControl.Score.text = "Score: " + GameControl.instance.Score;
                 }
@@ -124,6 +135,15 @@ public class Character : MonoBehaviour {
         if (!paralized)
         {
             transform.Translate(new Vector2(direction, 0f) * speed);
+            animator.SetInteger("State", (int)EAnima.run);
+            if (direction < 0)
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+            }
+            else if (direction > 0)
+            {
+                GetComponent<SpriteRenderer>().flipX = false;
+            }
             if (Camera.main.WorldToViewportPoint(transform.position).x < 0 && direction < 0)
             {
 
@@ -136,12 +156,15 @@ public class Character : MonoBehaviour {
                     transform.position.y);
             }
         }
+
     }
 
     public void Jump()
     {
         if (jumps < jumpsAllow && !paralized)
         {
+            audioSource.clip = soundEffects[0];
+            audioSource.Play();
             rb.AddForce(new Vector2(0f, 1f) * jumpForce);
             jumps++;
         }
@@ -181,10 +204,12 @@ public class Character : MonoBehaviour {
 
     private IEnumerator Paralize()
     {
+        animator.SetInteger("State", (int)EAnima.die);
         paralized = true;
         yield return new WaitForSeconds(paralizeTime);
         paralized = false;
         paralize = null;
+        animator.SetInteger("State", (int)EAnima.idle);
     }
     #endregion
 
@@ -202,6 +227,27 @@ public class Character : MonoBehaviour {
         get
         {
             return jumpForce;
+        }
+    }
+
+    public bool Paralized
+    {
+        get
+        {
+            return paralized;
+        }
+
+        set
+        {
+            paralized = value;
+        }
+    }
+
+    public Animator Animator
+    {
+        get
+        {
+            return animator;
         }
     }
     #endregion

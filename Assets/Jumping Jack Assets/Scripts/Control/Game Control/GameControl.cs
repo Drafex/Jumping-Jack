@@ -17,9 +17,9 @@ public class GameControl : MonoBehaviour {
     private List<Transform> floors;
     [SerializeField]
     private GameObject hole;
-    [SerializeField]
-    private GameObject monster;
     private List<Vector2> directions = new List<Vector2>();
+    [SerializeField]
+    private List<GameObject> monsters;
     #endregion
 
     #region Levels Parameters
@@ -39,6 +39,10 @@ public class GameControl : MonoBehaviour {
     private Transform firstFloor;
     #endregion
 
+    #region Sounds Parameters
+    [SerializeField]
+    private AudioSource writingSound;
+    #endregion
     #region Prefabs
     [SerializeField]
     private GameObject prfCharacter;
@@ -72,7 +76,7 @@ public class GameControl : MonoBehaviour {
     #endregion
 
     #region Functions For Holes And Monster Creation
-    public void CreateHoleOrMonster(int HoleOrMonster)
+    public void CreateHoleOrMonster(int HoleOrMonster, int wishOne)
     {
         int randomPosition = Random.Range(0, floors.Count - 1);
         MovingObjects mo;
@@ -89,12 +93,16 @@ public class GameControl : MonoBehaviour {
                 break;
 
             case 1:
-                mo = Instantiate(monster).GetComponent<MovingObjects>();
+                mo = Instantiate(monsters[wishOne]).GetComponent<MovingObjects>();
                 mo.transform.position = new Vector2(Random.Range(Camera.main.ViewportToWorldPoint(new Vector2(1, 0)).x,
                     Camera.main.ViewportToWorldPoint(new Vector2(0, 0)).x),
                     floors[randomPosition].position.y + mo.InitialHigh);
                 mo.IndexOnFloor = randomPosition;
                 mo.Direction = (directions[Random.Range(0, directions.Count - 1)]);
+                if (mo.Direction == Vector2.left)
+                {
+                    mo.GetComponent<SpriteRenderer>().flipX = true;
+                }
                 allMovingObjects.Add(mo.gameObject);
                 break;
             default:
@@ -147,7 +155,7 @@ public class GameControl : MonoBehaviour {
         {
             for (int i = 0; i < actualLevel; i++)
             {
-                CreateHoleOrMonster(1);
+                CreateHoleOrMonster(1,i);
             }
         }
         else
@@ -157,6 +165,7 @@ public class GameControl : MonoBehaviour {
         uiControl.ShowLinesContainer();
         character.transform.position = initialPosition.position;
         character.gameObject.SetActive(true);
+        character.Paralized = false;
     }
 
     public void GameOver()
@@ -240,6 +249,16 @@ public class GameControl : MonoBehaviour {
         get
         {
             return scoreAdded;
+        }
+    }
+    #endregion
+
+    #region Gets And Sets For sounds
+    public AudioSource WritingSound
+    {
+        get
+        {
+            return writingSound;
         }
     }
     #endregion
