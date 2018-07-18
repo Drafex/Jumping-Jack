@@ -81,20 +81,17 @@ public class Character : MonoBehaviour {
                 {
                     StopCoroutine(moveUp);
                 }
-                else
+                moveUp = StartCoroutine(MoveUP(new Vector2(transform.position.x,
+                     collision.gameObject.GetComponent<SpriteMask>().bounds.size.y +
+                     collision.transform.position.y + 0.1f)));
+                if (collision.transform.position.y >= GameControl.instance.Floors[
+                    GameControl.instance.Floors.Count - 1].position.y)
                 {
-                    moveUp = StartCoroutine(MoveUP(new Vector2(transform.position.x,
-                    collision.gameObject.GetComponent<SpriteMask>().bounds.size.y +
-                    collision.transform.position.y + 0.1f)));
-                    if (collision.transform.position.y >= GameControl.instance.Floors[
-                        GameControl.instance.Floors.Count-1].position.y)
-                    {
-                        GameControl.instance.NextLevel();
-                    }
-                    GameControl.instance.CreateHoleOrMonster(0,0);
-                    GameControl.instance.Score += GameControl.instance.ScoreAdded;
-                    GameControl.instance.UIControl.Score.text = "Score: " + GameControl.instance.Score;
+                    GameControl.instance.NextLevel();
                 }
+                GameControl.instance.CreateHoleOrMonster(0, 0);
+                GameControl.instance.Score += GameControl.instance.ScoreAdded;
+                GameControl.instance.UIControl.Score.text = "Score: " + GameControl.instance.Score;
             }
             else
             {
@@ -102,16 +99,13 @@ public class Character : MonoBehaviour {
                 {
                     StopCoroutine(letItFall);
                 }
-                else
-                {
-                    letItFall = StartCoroutine(LetItFall(collision.transform.position.y - 
+                letItFall = StartCoroutine(LetItFall(collision.transform.position.y -
                         collision.gameObject.GetComponent<SpriteMask>().bounds.size.y));
-                    if (paralize != null)
-                    {
-                        StopCoroutine(paralize);
-                    }
-                    paralize = StartCoroutine(Paralize());
+                if (paralize != null)
+                {
+                    StopCoroutine(paralize);
                 }
+                paralize = StartCoroutine(Paralize());
             }
         }
     }
@@ -124,6 +118,8 @@ public class Character : MonoBehaviour {
             {
                 StopCoroutine(paralize);
             }
+            audioSource.clip = soundEffects[1];
+            audioSource.Play();
             paralize = StartCoroutine(Paralize());
         }
     }
@@ -250,5 +246,7 @@ public class Character : MonoBehaviour {
             return animator;
         }
     }
+
+
     #endregion
 }

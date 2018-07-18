@@ -19,9 +19,12 @@ public class InputControl : MonoBehaviour {
         }
         else
         {
-            if (GameControl.instance.Character.Animator.GetInteger("State") == (int)EAnima.run)
+            if (GameControl.instance.Character.Animator.gameObject.activeSelf)
             {
-                GameControl.instance.Character.Animator.SetInteger("State", (int)EAnima.idle);
+                if (GameControl.instance.Character.Animator.GetInteger("State") == (int)EAnima.run)
+                {
+                    GameControl.instance.Character.Animator.SetInteger("State", (int)EAnima.idle);
+                }
             }
         }
         if (Input.GetAxis("Vertical") > 0)

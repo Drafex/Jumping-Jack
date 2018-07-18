@@ -148,6 +148,7 @@ public class GameControl : MonoBehaviour {
             item.GetComponent<MovingObjects>().StopAllCoroutines();
             Destroy(item);
         }
+        allMovingObjects.Clear();
         FirstTwoHoles();
         actualLevel++;
         scoreAdded += 5;
@@ -166,6 +167,8 @@ public class GameControl : MonoBehaviour {
         character.transform.position = initialPosition.position;
         character.gameObject.SetActive(true);
         character.Paralized = false;
+        character.GetComponent<BoxCollider2D>().isTrigger = false;
+        character.GetComponent<Rigidbody2D>().simulated = true;
     }
 
     public void GameOver()
