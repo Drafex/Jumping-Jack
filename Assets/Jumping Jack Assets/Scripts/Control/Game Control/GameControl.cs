@@ -39,6 +39,10 @@ public class GameControl : MonoBehaviour {
     private Transform firstFloor;
     #endregion
 
+    #region Sounds Parameters
+    [SerializeField]
+    private AudioSource writingSound;
+    #endregion
     #region Prefabs
     [SerializeField]
     private GameObject prfCharacter;
@@ -245,6 +249,16 @@ public class GameControl : MonoBehaviour {
         get
         {
             return scoreAdded;
+        }
+    }
+    #endregion
+
+    #region Gets And Sets For sounds
+    public AudioSource WritingSound
+    {
+        get
+        {
+            return writingSound;
         }
     }
     #endregion

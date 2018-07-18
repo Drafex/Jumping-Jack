@@ -23,6 +23,12 @@ public class Character : MonoBehaviour {
     private Animator animator;
     #endregion
 
+    #region Parameters For Sounds
+    private AudioSource audioSource;
+    [SerializeField]
+    private List<AudioClip> soundEffects;
+    #endregion
+
     #region Unity Functions
     void Start()
     {
@@ -30,6 +36,7 @@ public class Character : MonoBehaviour {
         GameControl.instance.UIControl.Life.text = "Lifes: " + lifes;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -42,6 +49,8 @@ public class Character : MonoBehaviour {
                 {
                     StopCoroutine(paralize);
                 }
+                audioSource.clip = soundEffects[1];
+                audioSource.Play();
                 paralize = StartCoroutine(Paralize());
             }
             if (!GameControl.instance.Floors.Contains(collision.transform) && paralized)
@@ -154,6 +163,8 @@ public class Character : MonoBehaviour {
     {
         if (jumps < jumpsAllow && !paralized)
         {
+            audioSource.clip = soundEffects[0];
+            audioSource.Play();
             rb.AddForce(new Vector2(0f, 1f) * jumpForce);
             jumps++;
         }
