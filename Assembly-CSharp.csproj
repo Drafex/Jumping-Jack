@@ -71,10 +71,10 @@
     <None Include="Assets\Jumping Jack Assets\Art\Fonts\prince-valiant\1001fonts-prince-valiant-eula.txt" />
     <None Include="Assets\Jumping Jack Assets\Art\Fonts\medici-text\1001fonts-medici-text-eula.txt" />
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>C:/Users/czulua18/Desktop/Jack/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/czulua18/Pictures/Jack/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/czulua18/Desktop/Jack/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/czulua18/Pictures/Jack/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

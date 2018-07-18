@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Jumping Jack Assets/Scenes/InitialMenu.unity
     guid: f7298b8578cf3984d806dd56338f5ecd
   - enabled: 1
-    path: Assets/Jumping Jack Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Jumping Jack Assets/Scenes/Level.unity
+    guid: 0f303bf706483554e9758531165f2863
   - enabled: 1
     path: Assets/Jumping Jack Assets/Scenes/Credits.unity
     guid: 33999442df5e4ad4ea9627b199f7968b
