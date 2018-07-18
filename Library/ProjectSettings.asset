@@ -16,7 +16,7 @@ PlayerSettings:
   productName: Adventures Of Jumping Jack
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
-  m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  m_SplashScreenBackgroundColor: {r: 0.28627452, g: 0, b: 0.41960788, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 0.5
@@ -44,7 +44,7 @@ PlayerSettings:
     duration: 2
   - logo: {fileID: 21300000, guid: c38a145c3481df145a18c5d743332eac, type: 3}
     duration: 2
-  - logo: {fileID: 21300000, guid: 62f5dabfa0aac1b40bd911738bb333d3, type: 3}
+  - logo: {fileID: 21300000, guid: 63881390b83b6eb4292b2e5e396a97c7, type: 3}
     duration: 2
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}

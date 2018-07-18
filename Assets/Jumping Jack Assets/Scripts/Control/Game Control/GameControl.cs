@@ -43,6 +43,7 @@ public class GameControl : MonoBehaviour {
     [SerializeField]
     private AudioSource writingSound;
     #endregion
+
     #region Prefabs
     [SerializeField]
     private GameObject prfCharacter;
