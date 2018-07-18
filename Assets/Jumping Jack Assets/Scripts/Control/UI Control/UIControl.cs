@@ -5,37 +5,47 @@ using UnityEngine.UI;
 
 public class UIControl : MonoBehaviour {
 
-    [SerializeField]
-    private Text showLines;
-    [SerializeField]
-    private Text lifes;
-    [SerializeField]
-    private GameObject linesContainer;
-    [SerializeField]
-    private GameObject gameOver;
+    #region Score Parameters
     [SerializeField]
     private Text score;
     [SerializeField]
     private Text highScore;
-    // Use this for initialization
-    void Start () {
-        highScore.text = "High Score: " + PlayerPrefs.GetInt("High Score");
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    #endregion
 
+    #region Life Parameters
+    [SerializeField]
+    private Text lifes;
+    #endregion
+
+    #region Message Parameters
+    [SerializeField]
+    private Text showLines;
+    [SerializeField]
+    private GameObject linesContainer;
+    [SerializeField]
+    private GameObject gameOver;
+    #endregion
+
+    #region Unity Functions
+    void Start()
+    {
+        highScore.text = "High Score: " + PlayerPrefs.GetInt("High Score");
+    }
+    #endregion
+
+    #region Message Function
     public void ShowLinesContainer()
     {
         linesContainer.SetActive(!linesContainer.activeSelf);
     }
+    #endregion
 
+    #region Levels Function
     public void GameOver()
     {
         gameOver.SetActive(!gameOver.activeSelf);
     }
+    #endregion
 
     #region Gets And Sets for UI
     public Text ShowLines

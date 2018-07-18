@@ -5,10 +5,6 @@ using UnityEngine;
 public class InputControl : MonoBehaviour {
 
     #region Unity Functions
-    void Start()
-    {
-
-    }
 
     void Update()
     {
@@ -30,6 +26,11 @@ public class InputControl : MonoBehaviour {
         if (Input.GetAxis("Vertical") > 0)
         {
             GameControl.instance.Character.Jump();
+        }
+
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
         }
     }
     #endregion
