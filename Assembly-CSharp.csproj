@@ -10,7 +10,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{E56C7B95-C952-52AF-C3ED-58021C457086}</ProjectGuid>
+    <ProjectGuid>{A2C22D73-9692-040B-2EC9-FE7E31533DFB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -63,16 +63,17 @@
     <Compile Include="Assets\Jumping Jack Assets\Scripts\Control\Input Control\InputControl.cs" />
     <Compile Include="Assets\Jumping Jack Assets\Scripts\Control\UI Control\UIControl.cs" />
     <Compile Include="Assets\Jumping Jack Assets\Scripts\Model\Character\Character.cs" />
+    <Compile Include="Assets\Jumping Jack Assets\Scripts\Model\Character\EAnima.cs" />
     <Compile Include="Assets\Jumping Jack Assets\Scripts\Model\Objects\MovingObjects.cs" />
     <Compile Include="Assets\Jumping Jack Assets\Scripts\View\MessageData.cs" />
     <Compile Include="Assets\Jumping Jack Assets\Scripts\View\MessageSystem.cs" />
     <None Include="Assets\Jumping Jack Assets\Art\Fonts\prince-valiant\1001fonts-prince-valiant-eula.txt" />
     <None Include="Assets\Jumping Jack Assets\Art\Fonts\medici-text\1001fonts-medici-text-eula.txt" />
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>C:/Users/czulua18/Documents/Jumping Jack/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/czulua18/Desktop/Jack/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/czulua18/Documents/Jumping Jack/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/czulua18/Desktop/Jack/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

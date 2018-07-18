@@ -20,6 +20,7 @@ public class Character : MonoBehaviour {
     private Coroutine moveUp;
     private Coroutine paralize;
     private Coroutine letItFall;
+    private Animator animator;
     #endregion
 
     #region Unity Functions
@@ -28,6 +29,7 @@ public class Character : MonoBehaviour {
         lifes = 6;
         GameControl.instance.UIControl.Life.text = "Lifes: " + lifes;
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -80,7 +82,7 @@ public class Character : MonoBehaviour {
                     {
                         GameControl.instance.NextLevel();
                     }
-                    GameControl.instance.CreateHoleOrMonster(0);
+                    GameControl.instance.CreateHoleOrMonster(0,0);
                     GameControl.instance.Score += GameControl.instance.ScoreAdded;
                     GameControl.instance.UIControl.Score.text = "Score: " + GameControl.instance.Score;
                 }
@@ -124,6 +126,15 @@ public class Character : MonoBehaviour {
         if (!paralized)
         {
             transform.Translate(new Vector2(direction, 0f) * speed);
+            animator.SetInteger("State", (int)EAnima.run);
+            if (direction < 0)
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+            }
+            else if (direction > 0)
+            {
+                GetComponent<SpriteRenderer>().flipX = false;
+            }
             if (Camera.main.WorldToViewportPoint(transform.position).x < 0 && direction < 0)
             {
 
@@ -136,6 +147,7 @@ public class Character : MonoBehaviour {
                     transform.position.y);
             }
         }
+
     }
 
     public void Jump()
@@ -181,10 +193,12 @@ public class Character : MonoBehaviour {
 
     private IEnumerator Paralize()
     {
+        animator.SetInteger("State", (int)EAnima.die);
         paralized = true;
         yield return new WaitForSeconds(paralizeTime);
         paralized = false;
         paralize = null;
+        animator.SetInteger("State", (int)EAnima.idle);
     }
     #endregion
 
@@ -215,6 +229,14 @@ public class Character : MonoBehaviour {
         set
         {
             paralized = value;
+        }
+    }
+
+    public Animator Animator
+    {
+        get
+        {
+            return animator;
         }
     }
     #endregion

@@ -17,6 +17,13 @@ public class InputControl : MonoBehaviour {
         {
             GameControl.instance.Character.Move(Input.GetAxis("Horizontal"));
         }
+        else
+        {
+            if (GameControl.instance.Character.Animator.GetInteger("State") == (int)EAnima.run)
+            {
+                GameControl.instance.Character.Animator.SetInteger("State", (int)EAnima.idle);
+            }
+        }
         if (Input.GetAxis("Vertical") > 0)
         {
             GameControl.instance.Character.Jump();
