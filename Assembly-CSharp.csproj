@@ -65,6 +65,7 @@
     <Compile Include="Assets\Jumping Jack Assets\Scripts\Model\Character\Character.cs" />
     <Compile Include="Assets\Jumping Jack Assets\Scripts\Model\Character\EAnima.cs" />
     <Compile Include="Assets\Jumping Jack Assets\Scripts\Model\Objects\MovingObjects.cs" />
+    <Compile Include="Assets\Jumping Jack Assets\Scripts\View\Menu.cs" />
     <Compile Include="Assets\Jumping Jack Assets\Scripts\View\MessageData.cs" />
     <Compile Include="Assets\Jumping Jack Assets\Scripts\View\MessageSystem.cs" />
     <None Include="Assets\Jumping Jack Assets\Art\Fonts\prince-valiant\1001fonts-prince-valiant-eula.txt" />
