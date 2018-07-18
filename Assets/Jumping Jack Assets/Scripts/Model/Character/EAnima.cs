@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum EAnima  {
+    #region Animation Enum
     idle,
     run,
-    die,
-    attack
+    die
+    #endregion
+
 }

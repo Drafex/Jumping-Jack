@@ -51,6 +51,7 @@ public class Character : MonoBehaviour {
                 }
                 audioSource.clip = soundEffects[1];
                 audioSource.Play();
+
                 paralize = StartCoroutine(Paralize());
             }
             if (!GameControl.instance.Floors.Contains(collision.transform) && paralized)
@@ -64,6 +65,7 @@ public class Character : MonoBehaviour {
                         PlayerPrefs.SetInt("High Score", GameControl.instance.Score);
                     }
                     PlayerPrefs.SetInt("Higher Score", GameControl.instance.Score);
+
                     GameControl.instance.UIControl.ShowLinesContainer();
                     GameControl.instance.MessageSystem.NextLine(GameControl.instance.MessageSystem.MessageData
                         .GameOverLine);
@@ -84,12 +86,15 @@ public class Character : MonoBehaviour {
                 moveUp = StartCoroutine(MoveUP(new Vector2(transform.position.x,
                      collision.gameObject.GetComponent<SpriteMask>().bounds.size.y +
                      collision.transform.position.y + 0.1f)));
+
                 if (collision.transform.position.y >= GameControl.instance.Floors[
                     GameControl.instance.Floors.Count - 1].position.y)
                 {
                     GameControl.instance.NextLevel();
                 }
+
                 GameControl.instance.CreateHoleOrMonster(0, 0);
+
                 GameControl.instance.Score += GameControl.instance.ScoreAdded;
                 GameControl.instance.UIControl.Score.text = "Score: " + GameControl.instance.Score;
             }
@@ -120,6 +125,7 @@ public class Character : MonoBehaviour {
             }
             audioSource.clip = soundEffects[1];
             audioSource.Play();
+
             paralize = StartCoroutine(Paralize());
         }
     }

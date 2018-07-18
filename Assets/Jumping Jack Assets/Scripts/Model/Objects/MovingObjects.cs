@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class MovingObjects : MonoBehaviour {
 
+    #region Moving Objects Parameters
     [SerializeField]
     private float speed;
     private int indexOnFloor;
     private Vector2 direction;
     [SerializeField]
     private float initialHigh;
+    #endregion
+
     #region Unity Functions
     void Start()
     {
