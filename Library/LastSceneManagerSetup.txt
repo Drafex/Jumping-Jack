@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Jumping Jack Assets/Scenes/InitialMenu.unity
+- path: Assets/Jumping Jack Assets/Scenes/SampleScene.unity
   isLoaded: 1
   isActive: 1
